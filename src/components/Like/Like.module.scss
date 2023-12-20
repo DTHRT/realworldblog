@@ -1,0 +1,23 @@
+.Like {
+  display: flex;
+  align-items: center;
+
+  &__button {
+    width: 16px;
+    height: 16px;
+    background: url("../../assets/like.svg");
+    background-size: cover;
+
+    &Active {
+      background: url("../../assets/like_active.svg");
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  
+  &__counter {
+    margin-left: 5px;
+  }
+}

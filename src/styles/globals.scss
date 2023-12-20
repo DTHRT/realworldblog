@@ -1,0 +1,12 @@
+@import "utils/reset";
+html,
+body {
+  font-family: "Inter UI", sans-serif;
+  background: #ebeef3;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
