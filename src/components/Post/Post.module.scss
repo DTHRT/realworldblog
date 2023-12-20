@@ -4,7 +4,8 @@
   max-width: 941px;
 
   &__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 25%;
     justify-content: space-between;
     margin-bottom: 10px;
 
@@ -17,6 +18,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      justify-content: end  ;
     }
   }
 
@@ -57,12 +59,13 @@
     font-style: normal;
     font-weight: 400;
     line-height: 28px; /* 140% */
+    overflow-wrap: anywhere;
   }
 
   &__like {
     margin-left: 13px;
   }
-  
+
   &__tags {
     margin-top: 5px;
     display: flex;
