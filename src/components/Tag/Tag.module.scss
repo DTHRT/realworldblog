@@ -10,4 +10,12 @@
   border-radius: 2px;
   border: 1px solid var(--text-color-secondary, rgba(0, 0, 0, 0.50));
 
+  
+  &__long {
+    display: inline-block;
+    width: 100px; /* Ширина контейнера */
+    white-space: nowrap; /* Запрет переноса текста на новую строку */
+    overflow: hidden; /* Скрытие текста, который не умещается в контейнере */
+    text-overflow: ellipsis;
+  }
 }

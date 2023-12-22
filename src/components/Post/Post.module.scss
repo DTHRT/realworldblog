@@ -1,11 +1,10 @@
 .Post {
   padding: 15px;
   background: white;
-  max-width: 941px;
+  width: 941px;
 
   &__header {
-    display: grid;
-    grid-template-columns: 1fr 25%;
+    display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 
@@ -18,7 +17,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      justify-content: end  ;
+      justify-content: end;
     }
   }
 
@@ -54,12 +53,17 @@
 
   &__title {
     color: #1890ff;
-
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 28px; /* 140% */
-    overflow-wrap: anywhere;
+
+    &Long {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 500px;
+    }
   }
 
   &__like {

@@ -4,8 +4,9 @@ import classNames from "classnames";
 interface Props {
   className?: string;
   active?: boolean;
+  likes?: number;
 }
-const Like: React.FC<Props> = ({ active, className }) => {
+const Like: React.FC<Props> = ({ active, className, likes = 0 }) => {
   return (
     <p className={classNames(styles.Like, className)}>
       <button
@@ -14,7 +15,7 @@ const Like: React.FC<Props> = ({ active, className }) => {
         })}
       />
 
-      <span className={styles.Like__counter}>0</span>
+      <span className={styles.Like__counter}>{likes}</span>
     </p>
   );
 };

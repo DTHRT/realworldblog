@@ -3,7 +3,7 @@ export default class Api {
 
   async getPosts() {
     try {
-      const response = await fetch(this.#apiBase + "/articles");
+      const response = await fetch(this.#apiBase + "/articles?limit=5");
       if (!response.ok) {
         throw new Error(response.statusText);
       }
