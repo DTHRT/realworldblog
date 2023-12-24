@@ -2,6 +2,7 @@ import styles from "./Post.module.scss";
 import Tag from "../Tag";
 import Like from "../Like";
 import classNames from "classnames";
+import { format } from "date-fns";
 
 interface Props {
   article: any;
@@ -45,8 +46,10 @@ const Post: React.FC<Props> = ({ article }) => {
 
         <div className={styles.Post__headerAuthor}>
           <div className={styles.Post__author}>
-            <h4 className={styles.Post__authorName}>John Doe</h4>
-            <p className={styles.Post__authorDate}>March 5, 2020</p>
+            <h4 className={styles.Post__authorName}>{username}</h4>
+            <p className={styles.Post__authorDate}>
+              {format(new Date(updatedAt), "MMMM d, yyyy")}
+            </p>
           </div>
           <img className={styles.Post__authorAvatar} src={image} alt="User" />
         </div>
