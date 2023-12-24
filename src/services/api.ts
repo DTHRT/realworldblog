@@ -15,4 +15,17 @@ export default class Api {
       console.error(e);
     }
   }
+
+  async getPost(slug: string = "") {
+    try {
+      const response = await fetch(this.#apiBase + `/articles/${slug}`);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      return await response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
