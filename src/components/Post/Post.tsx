@@ -3,12 +3,15 @@ import Tag from "../Tag";
 import Like from "../Like";
 import classNames from "classnames";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import Markdown from "react-markdown";
 
 interface Props {
   article: any;
+  full?: boolean;
 }
 
-const Post: React.FC<Props> = ({ article }) => {
+const Post: React.FC<Props> = ({ article, full }) => {
   const {
     title,
     slug,
@@ -25,14 +28,31 @@ const Post: React.FC<Props> = ({ article }) => {
       <header className={styles.Post__header}>
         <div className={styles.Post__headerContent}>
           <div className={styles.Post__headingWrapper}>
-            <h3
-              className={classNames(styles.Post__title, {
-                [styles.Post__titleLong]: title.length > 100,
-              })}
-            >
-              {title}
-            </h3>
-            <Like className={styles.Post__like} likes={favoritesCount} />
+            {full ? (
+              <h3
+                className={classNames(styles.Post__title, {
+                  [styles.Post__titleLong]: title.length > 100,
+                })}
+              >
+                {title}
+              </h3>
+            ) : (
+              <Link to={`articles/${slug}`}>
+                <h3
+                  className={classNames(styles.Post__title, {
+                    [styles.Post__titleLong]: title.length > 100,
+                  })}
+                >
+                  {title}
+                </h3>
+              </Link>
+            )}
+
+            <Like
+              className={styles.Post__like}
+              likes={favoritesCount}
+              disabled={true}
+            />
           </div>
 
           <ul className={styles.Post__tags}>
@@ -55,7 +75,19 @@ const Post: React.FC<Props> = ({ article }) => {
         </div>
       </header>
 
-      <p className={styles.Post__body}>{description}</p>
+      {description && (
+        <p
+          className={classNames(styles.Post__body, {
+            [styles.Post__bodyLong]: description.length > 100,
+          })}
+        >
+          {full ? (
+            <Markdown className="markdown-body">{description}</Markdown>
+          ) : (
+            <>{description}</>
+          )}
+        </p>
+      )}
     </article>
   );
 };

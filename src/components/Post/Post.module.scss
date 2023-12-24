@@ -83,5 +83,12 @@
     font-weight: 400;
     line-height: 22px; /* 183.333% */
     word-wrap: break-word;
+
+    &Long {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 500px;
+    }
   }
 }
