@@ -1,9 +1,11 @@
 export default class Api {
   #apiBase = "https://blog.kata.academy/api";
 
-  async getPosts() {
+  async getPosts(offset: number = 0, limit: number = 5) {
     try {
-      const response = await fetch(this.#apiBase + "/articles?limit=5");
+      const response = await fetch(
+        this.#apiBase + `/articles?limit=${limit}&offset=${offset}`,
+      );
       if (!response.ok) {
         throw new Error(response.statusText);
       }
