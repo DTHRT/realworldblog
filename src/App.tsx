@@ -9,6 +9,7 @@ import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import Header from "./components/Header";
 import Container from "./components/Container";
 import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
             <Route exact path="/articles" component={ArticlesPage} />
             <Route exact path="/articles/:slug" component={PostPage} />
             <Route exact path="/sign-in" component={SignInPage} />
-            <Route exact path="/sign-up" />
+            <Route exact path="/sign-up" component={SignUpPage} />
           </Switch>
         </Container>
       </Router>
