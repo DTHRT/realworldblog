@@ -15,7 +15,6 @@ function App() {
     <>
       <Router>
         <Header />
-
         <Container>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/articles" />} />
