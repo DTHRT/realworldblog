@@ -2,9 +2,9 @@ import styles from "./Post.module.scss";
 import Tag from "../Tag";
 import Like from "../Like";
 import classNames from "classnames";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import Markdown from "react-markdown";
+import UserBlock from "../UserBlock";
 
 interface Props {
   article: any;
@@ -64,15 +64,7 @@ const Post: React.FC<Props> = ({ article, full }) => {
           </ul>
         </div>
 
-        <div className={styles.Post__headerAuthor}>
-          <div className={styles.Post__author}>
-            <h4 className={styles.Post__authorName}>{username}</h4>
-            <p className={styles.Post__authorDate}>
-              {format(new Date(updatedAt), "MMMM d, yyyy")}
-            </p>
-          </div>
-          <img className={styles.Post__authorAvatar} src={image} alt="User" />
-        </div>
+        <UserBlock username={username} image={image} date={updatedAt} />
       </header>
 
       {description && (
