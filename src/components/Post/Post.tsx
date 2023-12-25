@@ -56,8 +56,8 @@ const Post: React.FC<Props> = ({ article, full }) => {
           </div>
 
           <ul className={styles.Post__tags}>
-            {tagList.map((tag: string) => (
-              <li>
+            {tagList.map((tag: string, index: number) => (
+              <li key={`${index}_${updatedAt}`}>
                 <Tag text={tag} />
               </li>
             ))}

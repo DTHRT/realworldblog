@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Api from "../../services/api";
-import Header from "../../components/Header";
 import Loader from "../../components/Loader";
-import PostList from "../../components/PostList";
 import Post from "../../components/Post";
 import Pagination from "../../components/Paginataion";
+import PostList from "../../components/PostList";
 
 function ArticlesPage() {
   const [articles, setArticles] = useState([]);
@@ -19,23 +18,21 @@ function ArticlesPage() {
       api.getPosts().then(({ articles, articlesCount }) => {
         setArticles(articles);
         setTotalArticles(articlesCount);
-        setPages(articlesCount / 5);
+        setPages(Math.ceil(articlesCount / 5));
+        setLoading(false);
       });
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
-  const handlePageClick = (event: any) => {
+  const handlePageClick = async (event: any) => {
     setLoading(true);
     const newOffset = (event.selected * 5) % totalArticles;
 
     try {
-      api.getPosts(newOffset).then(({ articles }) => {
-        setArticles(articles);
-      });
+      const { articles } = await api.getPosts(newOffset);
+      setArticles(articles);
     } catch (e) {
       console.error(e);
     } finally {
@@ -45,21 +42,25 @@ function ArticlesPage() {
 
   return (
     <>
-      <Header />
-
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        articles.length > 0 && (
           <PostList>
             {articles.map((article) => {
-              return <Post article={article} />;
+              const {
+                author: { username },
+                updatedAt,
+              } = article;
+              return (
+                <Post article={article} key={`${updatedAt}-${username}`} />
+              );
             })}
           </PostList>
-
-          <Pagination pageCount={pages} handlePageClick={handlePageClick} />
-        </div>
+        )
       )}
+
+      <Pagination pageCount={pages} handlePageClick={handlePageClick} />
     </>
   );
 }
