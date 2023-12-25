@@ -18,7 +18,7 @@ const InputText: React.FC<Props> = ({
   onChange,
 }) => {
   return (
-    <label htmlFor={`#${name}`} className={styles.InputText}>
+    <label htmlFor={`${name}`} className={styles.InputText}>
       <span className={styles.InputText__label}>{label}</span>
 
       <input
