@@ -1,4 +1,7 @@
+import styles from "./InputText.module.scss";
+
 interface Props {
+  type: "text" | "password" | "email";
   label: string;
   name: string;
   placeholder: string;
@@ -7,6 +10,7 @@ interface Props {
 }
 
 const InputText: React.FC<Props> = ({
+  type,
   label,
   name,
   placeholder,
@@ -14,14 +18,15 @@ const InputText: React.FC<Props> = ({
   onChange,
 }) => {
   return (
-    <label htmlFor={`#${name}`}>
-      <span>{label}</span>
+    <label htmlFor={`#${name}`} className={styles.InputText}>
+      <span className={styles.InputText__label}>{label}</span>
 
       <input
-        type="text"
+        className={styles.InputText__input}
+        type={type}
         name={name}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         onChange={onChange}
         id={name}
       />
