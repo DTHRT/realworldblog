@@ -8,7 +8,7 @@ import PostPage from "./pages/PostPage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import Header from "./components/Header";
 import Container from "./components/Container";
-import SignInPage from "./pages/SignInPage/SignInPage";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
   return (
