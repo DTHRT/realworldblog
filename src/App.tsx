@@ -8,21 +8,24 @@ import PostPage from "./pages/PostPage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import Header from "./components/Header";
 import Container from "./components/Container";
+import SignInPage from "./pages/SignInPage/SignInPage";
 
 function App() {
   return (
     <>
-      <Header />
+      <Router>
+        <Header />
 
-      <Container>
-        <Router>
+        <Container>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/articles" />} />
             <Route exact path="/articles" component={ArticlesPage} />
             <Route exact path="/articles/:slug" component={PostPage} />
+            <Route exact path="/sign-in" component={SignInPage} />
+            <Route exact path="/sign-up" />
           </Switch>
-        </Router>
-      </Container>
+        </Container>
+      </Router>
     </>
   );
 }
