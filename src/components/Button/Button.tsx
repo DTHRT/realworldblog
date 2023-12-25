@@ -4,7 +4,7 @@ import classNames from "classnames";
 interface Props {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: string | undefined;
+  variant?: "default" | "success" | "create-article" | "black" | undefined;
 }
 const Button: React.FC<Props> = ({
   children,
@@ -13,9 +13,18 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={classNames(styles.Button, {
-        [styles.Button__success]: variant === "success",
-      })}
+      className={classNames(
+        styles.Button,
+        {
+          [styles.Button__success]: variant === "success",
+        },
+        {
+          [styles.Button__createArticle]: variant === "create-article",
+        },
+        {
+          [styles.Button__black]: variant === "black",
+        },
+      )}
       onClick={onClick}
     >
       {children}
