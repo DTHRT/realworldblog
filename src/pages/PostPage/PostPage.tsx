@@ -7,7 +7,9 @@ import Api from "../../services/api";
 import PostList from "../../components/PostList";
 
 const PostPage = () => {
-  const { slug } = useParams();
+  const params = useParams();
+  // @ts-ignore
+  const { slug } = params;
   const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState(null);
   const api = new Api();
