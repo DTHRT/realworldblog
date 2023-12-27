@@ -2,10 +2,12 @@ import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 import { Link } from "react-router-dom";
 import InputCheckbox from "../../components/InputCheckbox";
+import styles from "./SignUpPage.module.scss";
 
 const SignUpPage = () => {
   return (
     <Form
+      className={styles.SignUpPage__form}
       title="Sign Up"
       onSubmit={(e) => console.log(e)}
       submitText="Create"
