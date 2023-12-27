@@ -1,4 +1,5 @@
 import styles from "./Form.module.scss";
+import classNames from "classnames";
 
 interface Props {
   title?: string;
@@ -6,6 +7,7 @@ interface Props {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   submitText?: string;
   footerText?: React.ReactNode;
+  className?: string;
 }
 
 const Form: React.FC<Props> = ({
@@ -14,9 +16,10 @@ const Form: React.FC<Props> = ({
   onSubmit,
   submitText,
   footerText,
+  className,
 }) => {
   return (
-    <form className={styles.Form} onSubmit={onSubmit}>
+    <form className={classNames(styles.Form, className)} onSubmit={onSubmit}>
       {title && <h2 className={styles.Form__title}>{title}</h2>}
 
       <div className={styles.Form__form}>{children}</div>
