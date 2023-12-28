@@ -19,7 +19,9 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.Header}>
-      <h1 className="title">Real World Blog</h1>
+      <Link to="/">
+        <h1 className="title">Real World Blog</h1>
+      </Link>
       <div className={styles.Header__buttons}>
         {token ? (
           <>
