@@ -1,9 +1,13 @@
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import InputCheckbox from "../../components/InputCheckbox";
 import styles from "./SignUpPage.module.scss";
 import { useForm } from "react-hook-form";
+import Api from "../../services/api";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/user/userSlice";
 
 const SignUpPage = () => {
   const {
@@ -12,9 +16,33 @@ const SignUpPage = () => {
     formState: { errors },
   } = useForm();
 
+  const api = new Api();
+  const dispatch = useDispatch();
+  let history = useHistory();
+
+  const onSubmit = async (data: any) => {
+    const { username, email, password } = data;
+
+    const response = await api.register({ username, email, password });
+
+    const { errors, user } = response;
+
+    if (errors) {
+      const errorMessages = Object.entries(errors)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(" ");
+
+      return toast.error(errorMessages);
+    }
+
+    toast.success("User created successfully");
+    dispatch(login(user));
+    history.push("/");
+  };
+
   return (
     <Form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => onSubmit(data))}
       className={styles.SignUpPage__form}
       title="Sign Up"
       submitText="Create"
