@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { login } from "./features/user/userSlice";
 import { useEffect } from "react";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
             <Route exact path="/articles/:slug" component={PostPage} />
             <Route exact path="/sign-in" component={SignInPage} />
             <Route exact path="/sign-up" component={SignUpPage} />
+            <Route exact path="/profile" component={ProfilePage} />
           </Switch>
         </Container>
 
