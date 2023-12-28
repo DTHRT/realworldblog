@@ -1,6 +1,6 @@
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "./ProfilePage.module.scss";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -10,29 +10,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const ProfilePage = () => {
-  const { username, email } = useSelector((state: any) => state.user);
+  const { username, email, token, image } = useSelector(
+    (state: any) => state.user,
+  );
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
+    reset,
+  } = useForm();
+
+  useEffect(() => {
+    reset({
       username,
       email,
-      "new-password": "",
-      "avatar-url": "",
-    },
-  });
+      image,
+    });
+  }, [username, email]);
 
   const api = new Api();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = async (data: any) => {
-    const { email, password } = data;
-
-    const response = await api.login({ email, password });
+    const response = await api.editProfile(data, token);
 
     const { errors, user } = response;
 
@@ -54,7 +56,7 @@ const ProfilePage = () => {
       onSubmit={handleSubmit((data) => onSubmit(data))}
       className={styles.ProfilePage__form}
       title="Edit Profile"
-      submitText="Create"
+      submitText="Save"
     >
       <InputText
         register={{
@@ -94,7 +96,7 @@ const ProfilePage = () => {
 
       <InputText
         register={{
-          ...register("new-password", {
+          ...register("password", {
             required: "New password is required",
             minLength: {
               value: 6,
@@ -106,15 +108,15 @@ const ProfilePage = () => {
             },
           }),
         }}
-        error={errors["new-password"]}
+        error={errors["password"]}
         label="New Password"
-        name="new-password"
+        name="password"
         placeholder="New Password"
       />
 
       <InputText
         register={{
-          ...register("avatar-url", {
+          ...register("image", {
             required: "This field is required",
             pattern: {
               value:
@@ -123,9 +125,9 @@ const ProfilePage = () => {
             },
           }),
         }}
-        error={errors["avatar-url"]}
+        error={errors["image"]}
         label="Avatar image (url)"
-        name="avatar-url"
+        name="image"
         placeholder="Avatar image"
       />
     </Form>
