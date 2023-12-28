@@ -27,7 +27,7 @@ const Header: React.FC = () => {
               <Button variant="create-article">Create article</Button>
             </Link>
 
-            <UserBlock username={username} image="" />
+            <UserBlock username={username} image="" locatedInHeader={true} />
 
             <Link to="/">
               <Button variant="black" onClick={onLogOut}>
