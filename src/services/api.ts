@@ -1,3 +1,4 @@
+import { ILogin, IRegister } from "./types";
 export default class Api {
   #apiBase = "https://blog.kata.academy/api";
 
@@ -26,6 +27,50 @@ export default class Api {
       return await response.json();
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  async login(body: ILogin) {
+    try {
+      const response = await fetch(this.#apiBase + "/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: body }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    } catch (e: any) {
+      return e;
+    }
+  }
+
+  async register(body: IRegister) {
+    try {
+      const response = await fetch(this.#apiBase + "/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: body }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      return data;
+    } catch (e: any) {
+      return e;
     }
   }
 }
