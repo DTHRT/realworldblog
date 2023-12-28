@@ -5,8 +5,8 @@ interface Props {
   label: string;
   name: string;
   placeholder: string;
-  register?: any;
-  errors?: any;
+  register: any;
+  error?: any;
 }
 
 const InputText: React.FC<Props> = ({
@@ -14,7 +14,7 @@ const InputText: React.FC<Props> = ({
   name,
   placeholder,
   register,
-  errors,
+  error,
 }) => {
   return (
     <label htmlFor={`${name}`} className={styles.InputText}>
@@ -22,7 +22,7 @@ const InputText: React.FC<Props> = ({
 
       <input
         className={classNames(styles.InputText__input, {
-          [styles.InputText__input_error]: errors,
+          [styles.InputText__input_error]: error,
         })}
         name={name}
         placeholder={placeholder}
@@ -30,7 +30,7 @@ const InputText: React.FC<Props> = ({
         {...register}
       />
 
-      {errors && <p className={styles.InputText__error}>{errors.message}</p>}
+      {error && <p className={styles.InputText__error}>{error.message}</p>}
     </label>
   );
 };

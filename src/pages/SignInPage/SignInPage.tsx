@@ -30,7 +30,7 @@ const SignInPage = () => {
         name="email"
         placeholder="Email address"
         register={{ ...register("email", { required: "Email is required" }) }}
-        errors={errors["email"]}
+        error={errors["email"]}
       />
 
       <InputText
@@ -42,7 +42,7 @@ const SignInPage = () => {
             required: "Password is required",
           }),
         }}
-        errors={errors["password"]}
+        error={errors["password"]}
       />
     </Form>
   );
