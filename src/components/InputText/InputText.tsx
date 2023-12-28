@@ -1,35 +1,36 @@
 import styles from "./InputText.module.scss";
+import classNames from "classnames";
 
 interface Props {
-  type: "text" | "password" | "email";
   label: string;
   name: string;
   placeholder: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  register?: any;
+  errors?: any;
 }
 
 const InputText: React.FC<Props> = ({
-  type,
   label,
   name,
   placeholder,
-  value,
-  onChange,
+  register,
+  errors,
 }) => {
   return (
     <label htmlFor={`${name}`} className={styles.InputText}>
       <span className={styles.InputText__label}>{label}</span>
 
       <input
-        className={styles.InputText__input}
-        type={type}
+        className={classNames(styles.InputText__input, {
+          [styles.InputText__input_error]: errors,
+        })}
         name={name}
         placeholder={placeholder}
-        defaultValue={value}
-        onChange={onChange}
         id={name}
+        {...register}
       />
+
+      {errors && <p className={styles.InputText__error}>{errors.message}</p>}
     </label>
   );
 };

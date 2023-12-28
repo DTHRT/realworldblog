@@ -18,39 +18,31 @@ const SignUpPage = () => {
       }
     >
       <InputText
-        type="text"
+        register={{}}
         label="Username"
         name="username"
         placeholder="Username"
-        value=""
-        onChange={() => {}}
       />
 
       <InputText
-        type="email"
+        register={{}}
         label="Email address"
         name="email"
         placeholder="Email address"
-        value=""
-        onChange={() => {}}
       />
 
       <InputText
-        type="password"
+        register={{}}
         label="Password"
         name="password"
         placeholder="Password"
-        value=""
-        onChange={() => {}}
       />
 
       <InputText
-        type="password"
+        register={{}}
         label="Reepat Password"
         name="repeat-password"
         placeholder="Repeat Password"
-        value=""
-        onChange={() => {}}
       />
 
       <InputCheckbox

@@ -2,13 +2,22 @@ import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 import { Link } from "react-router-dom";
 import styles from "./SignInPage.module.scss";
+import { useForm } from "react-hook-form";
 
 const SignInPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // console.log(errors);
+
   return (
     <Form
+      onSubmit={handleSubmit((data) => console.log(data))}
       className={styles.SignInPage__form}
       title="Sign In"
-      onSubmit={(e) => console.log(e)}
       submitText="Login"
       footerText={
         <>
@@ -17,21 +26,23 @@ const SignInPage = () => {
       }
     >
       <InputText
-        type="email"
         label="Email address"
         name="email"
         placeholder="Email address"
-        value=""
-        onChange={() => {}}
+        register={{ ...register("email", { required: "Email is required" }) }}
+        errors={errors["email"]}
       />
 
       <InputText
-        type="password"
         label="Password"
         name="password"
         placeholder="Password"
-        value=""
-        onChange={() => {}}
+        register={{
+          ...register("password", {
+            required: "Password is required",
+          }),
+        }}
+        errors={errors["password"]}
       />
     </Form>
   );
