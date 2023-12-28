@@ -1,8 +1,12 @@
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "./SignInPage.module.scss";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { login } from "../../features/user/userSlice";
+import Api from "../../services/api";
+import { useDispatch } from "react-redux";
 
 const SignInPage = () => {
   const {
@@ -11,11 +15,33 @@ const SignInPage = () => {
     formState: { errors },
   } = useForm();
 
-  // console.log(errors);
+  const api = new Api();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onSubmit = async (data: any) => {
+    const { email, password } = data;
+
+    const response = await api.login({ email, password });
+
+    const { errors, user } = response;
+
+    if (errors) {
+      const errorMessages = Object.entries(errors)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(" ");
+
+      return toast.error(errorMessages);
+    }
+
+    toast.success("Logged in successfully");
+    dispatch(login(user));
+    history.push("/");
+  };
 
   return (
     <Form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => onSubmit(data))}
       className={styles.SignInPage__form}
       title="Sign In"
       submitText="Login"
