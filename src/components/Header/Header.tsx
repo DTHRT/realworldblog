@@ -8,7 +8,7 @@ import { logout } from "../../features/user/userSlice";
 
 const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
-  const { token, username } = user;
+  const { token, username, image } = user;
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,11 @@ const Header: React.FC = () => {
               <Button variant="create-article">Create article</Button>
             </Link>
 
-            <UserBlock username={username} image="" locatedInHeader={true} />
+            <UserBlock
+              username={username}
+              image={image}
+              locatedInHeader={true}
+            />
 
             <Link to="/">
               <Button variant="black" onClick={onLogOut}>
