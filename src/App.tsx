@@ -12,13 +12,15 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "./features/user/userSlice";
 import { useEffect } from "react";
 import ProfilePage from "./pages/ProfilePage";
+import { RootState } from "./store";
 
 function App() {
   const dispatch = useDispatch();
+  const { token } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user") || "{}");
@@ -39,7 +41,13 @@ function App() {
             <Route exact path="/articles/:slug" component={PostPage} />
             <Route exact path="/sign-in" component={SignInPage} />
             <Route exact path="/sign-up" component={SignUpPage} />
-            <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/new-article" component={ProfilePage} />
+            <PrivateRoute
+              exact
+              path="/profile/"
+              component={ProfilePage}
+              isAuthenticated={!!token}
+            />
           </Switch>
         </Container>
 
@@ -61,3 +69,31 @@ function App() {
 }
 
 export default App;
+
+interface PrivateRouteProps {
+  component: React.ComponentType<any>;
+  isAuthenticated: boolean;
+  path: string;
+  exact?: boolean;
+}
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component,
+  isAuthenticated,
+  ...rest
+}) => {
+  const Component = component as React.ComponentType<any>;
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/sign-in", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+};
