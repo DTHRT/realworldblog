@@ -27,7 +27,7 @@ const ProfilePage = () => {
       email,
       image,
     });
-  }, [username, email]);
+  }, [username, email, image]);
 
   const api = new Api();
   const dispatch = useDispatch();

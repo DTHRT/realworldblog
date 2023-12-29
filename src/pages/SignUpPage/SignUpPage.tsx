@@ -1,6 +1,6 @@
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import InputCheckbox from "../../components/InputCheckbox";
 import styles from "./SignUpPage.module.scss";
 import { useForm } from "react-hook-form";

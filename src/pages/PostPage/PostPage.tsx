@@ -19,7 +19,7 @@ const PostPage = () => {
       setArticle(article);
       setLoading(false);
     });
-  }, []);
+  }, [slug]);
 
   return loading ? (
     <Loader />
