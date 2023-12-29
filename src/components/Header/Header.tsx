@@ -13,7 +13,6 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   const onLogOut = () => {
-    localStorage.removeItem("user");
     dispatch(logout());
   };
 

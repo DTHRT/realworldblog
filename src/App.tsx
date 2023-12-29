@@ -12,23 +12,13 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "./features/user/userSlice";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import ProfilePage from "./pages/ProfilePage";
 import { RootState } from "./store";
+import CreateArticlePage from "./pages/CreateArticlePage";
 
 function App() {
-  const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.user);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user") || "{}");
-    const { user } = data;
-    if (user) {
-      dispatch(login(user));
-    }
-  }, []);
 
   return (
     <>
@@ -41,10 +31,15 @@ function App() {
             <Route exact path="/articles/:slug" component={PostPage} />
             <Route exact path="/sign-in" component={SignInPage} />
             <Route exact path="/sign-up" component={SignUpPage} />
-            <Route exact path="/new-article" component={ProfilePage} />
             <PrivateRoute
               exact
-              path="/profile/"
+              path="/new-article"
+              component={CreateArticlePage}
+              isAuthenticated={!!token}
+            />
+            <PrivateRoute
+              exact
+              path="/profile"
               component={ProfilePage}
               isAuthenticated={!!token}
             />

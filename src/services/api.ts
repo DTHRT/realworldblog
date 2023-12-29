@@ -45,7 +45,6 @@ export default class Api {
         throw data;
       }
 
-      localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (e: any) {
       return e;
