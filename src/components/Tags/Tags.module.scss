@@ -1,17 +1,15 @@
 .Tags {
-  
-  
   &__label {
     margin-bottom: 5px;
     display: block;
   }
-  
+
   &__list {
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
-  
+
   &__item {
     display: grid;
     grid-template-columns: 300px 120px 120px;

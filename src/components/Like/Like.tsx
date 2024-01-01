@@ -9,6 +9,7 @@ import { setArticles } from "../../features/articles/articlesSlice";
 import { useState } from "react";
 
 interface Props {
+  qcweqwce;
   className?: string;
   active?: boolean;
   likes?: number;

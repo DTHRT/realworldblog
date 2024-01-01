@@ -15,13 +15,13 @@
     &:hover {
       opacity: 0.5;
     }
-    
+
     &:disabled {
       opacity: 0.4;
       cursor: default;
     }
   }
-  
+
   &__counter {
     margin-left: 5px;
   }

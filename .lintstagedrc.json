@@ -1,4 +1,4 @@
 {
-  "*js": ["prettier ./src --write", "eslint ./src --color"],
-  "*jsx": ["prettier ./src --write", "eslint ./src --color"]
+  "*ts": ["prettier ./src --write", "eslint ./src --color"],
+  "*tsx": ["prettier ./src --write", "eslint ./src --color"]
 }
