@@ -27,7 +27,9 @@ const Post: React.FC<Props> = ({ article, full }) => {
     favoritesCount,
     author,
     updatedAt,
+    favorited,
   } = article;
+
   const { username, image } = author;
   const { username: currentUsername, token } = useSelector(
     (state: any) => state.user,
@@ -85,7 +87,9 @@ const Post: React.FC<Props> = ({ article, full }) => {
             <Like
               className={styles.Post__like}
               likes={favoritesCount}
-              disabled={true}
+              disabled={!token}
+              slug={slug}
+              active={favorited}
             />
           </div>
 
