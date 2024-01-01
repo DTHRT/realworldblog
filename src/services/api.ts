@@ -53,6 +53,31 @@ export default class Api {
     }
   }
 
+  async updatePost(slug: string, body: IPost, token: string) {
+    console.log(slug, body, token);
+
+    try {
+      const response = await fetch(this.#apiBase + `/articles/${slug}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify({ article: body }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      return data;
+    } catch (e: any) {
+      return e;
+    }
+  }
+
   async login(body: ILogin) {
     try {
       const response = await fetch(this.#apiBase + "/users/login", {
