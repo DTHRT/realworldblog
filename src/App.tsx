@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import ProfilePage from "./pages/ProfilePage";
 import { RootState } from "./store";
 import CreateArticlePage from "./pages/CreateArticlePage";
+import EditArticlePage from "./pages/EditArticlePage";
 
 function App() {
   const { token } = useSelector((state: RootState) => state.user);
@@ -41,6 +42,12 @@ function App() {
               exact
               path="/profile"
               component={ProfilePage}
+              isAuthenticated={!!token}
+            />
+            <PrivateRoute
+              exact
+              path="/articles/:slug/edit"
+              component={EditArticlePage}
               isAuthenticated={!!token}
             />
           </Switch>
