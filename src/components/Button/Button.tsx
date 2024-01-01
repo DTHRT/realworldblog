@@ -19,7 +19,7 @@ const Button: React.FC<Props> = ({
     <button
       type={type}
       className={classNames(
-        styles.Button,
+        className ? className : styles.Button,
         {
           [styles.Button__success]: variant === "success",
         },
@@ -29,7 +29,6 @@ const Button: React.FC<Props> = ({
         {
           [styles.Button__black]: variant === "black",
         },
-        className,
       )}
       onClick={onClick}
     >
