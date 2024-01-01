@@ -6,8 +6,13 @@ import { toast } from "react-toastify";
 import Api from "../../services/api";
 import Textarea from "../../components/Textarea";
 import Tags from "../../components/Tags";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useHistory } from "react-router-dom";
 
 const CreateArticlePage = () => {
+  const { token } = useSelector((state: RootState) => state.user);
+  const history = useHistory();
   const api = new Api();
   const {
     register,
@@ -17,21 +22,26 @@ const CreateArticlePage = () => {
   } = useForm({
     defaultValues: {
       tags: [{ tag: "" }],
-      text: "",
-      short_description: "",
+      description: "",
       title: "",
     },
   });
 
   const onSubmit = async (data: any) => {
-    console.log({ data });
+    if (!token) {
+      return toast.error("Please sign in");
+    }
 
-    return;
-    const { username, email, password } = data;
+    const { title, description, tags } = data;
 
-    const response = await api.register({ username, email, password });
+    const tagList = tags.map((tag: any) => tag.tag);
 
-    const { errors, user } = response;
+    const response = await api.createPost(
+      { title, description, tagList },
+      token,
+    );
+
+    const { errors } = response;
 
     if (errors) {
       const errorMessages = Object.entries(errors)
@@ -41,8 +51,8 @@ const CreateArticlePage = () => {
       return toast.error(errorMessages);
     }
 
-    toast.success("User created successfully");
-    // history.push("/");
+    toast.success("Article created successfully");
+    history.push("/");
   };
 
   return (
@@ -65,28 +75,16 @@ const CreateArticlePage = () => {
           error={errors["title"]}
         />
 
-        <InputText
-          label="Short description"
-          name="short_description"
-          placeholder="Short description"
-          register={{
-            ...register("short_description", {
-              required: "Short description is required",
-            }),
-          }}
-          error={errors["short_description"]}
-        />
-
         <Textarea
           label="Text"
-          name="text"
+          name="description"
           placeholder="Text"
           register={{
-            ...register("text", {
+            ...register("description", {
               required: "Text is required",
             }),
           }}
-          error={errors["text"]}
+          error={errors["description"]}
         />
 
         <Tags register={register} errors={errors} control={control} />
