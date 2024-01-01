@@ -1,8 +1,9 @@
+import React from "react";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./SignInPage.module.scss";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { login } from "../../features/user/userSlice";
 import Api from "../../services/api";
@@ -19,7 +20,7 @@ const SignInPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FieldValues) => {
     const { email, password } = data;
 
     const response = await api.login({ email, password });

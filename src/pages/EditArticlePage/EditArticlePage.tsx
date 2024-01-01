@@ -1,7 +1,8 @@
+import React from "react";
 import styles from "./EditArticlePage.module.scss";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Api from "../../services/api";
 import Textarea from "../../components/Textarea";
@@ -15,8 +16,7 @@ const EditArticlePage = () => {
   const { token } = useSelector((state: RootState) => state.user);
   const history = useHistory();
   const api = new Api();
-  const params = useParams();
-  // @ts-ignore
+  const params: { slug: string } = useParams();
   const { slug } = params;
 
   const {
@@ -34,21 +34,21 @@ const EditArticlePage = () => {
       reset({
         title,
         description,
-        tags: tagList.map((tag: any) => {
+        tags: tagList.map((tag: { tag: string }) => {
           return { tag };
         }),
       });
     });
   }, []);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FieldValues) => {
     if (!token) {
       return toast.error("Please sign in");
     }
 
     const { title, description, tags } = data;
 
-    const tagList = tags.map((tag: any) => tag.tag);
+    const tagList = tags.map((tag: { tag: string }) => tag.tag);
 
     const response = await api.updatePost(
       slug,

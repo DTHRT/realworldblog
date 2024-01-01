@@ -1,7 +1,9 @@
+import React from "react";
+
 import styles from "./CreateArticlePage.module.scss";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Api from "../../services/api";
 import Textarea from "../../components/Textarea";
@@ -27,14 +29,14 @@ const CreateArticlePage = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FieldValues) => {
     if (!token) {
       return toast.error("Please sign in");
     }
 
     const { title, description, tags } = data;
 
-    const tagList = tags.map((tag: any) => tag.tag);
+    const tagList = tags.map((tag: { tag: string }) => tag.tag);
 
     const response = await api.createPost(
       { title, description, tagList },

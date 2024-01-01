@@ -1,9 +1,10 @@
+import React from "react";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 import { Link, useHistory } from "react-router-dom";
 import InputCheckbox from "../../components/InputCheckbox";
 import styles from "./SignUpPage.module.scss";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Api from "../../services/api";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -18,9 +19,9 @@ const SignUpPage = () => {
 
   const api = new Api();
   const dispatch = useDispatch();
-  let history = useHistory();
+  const history = useHistory();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FieldValues) => {
     const { username, email, password } = data;
 
     const response = await api.register({ username, email, password });

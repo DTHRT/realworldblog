@@ -59,7 +59,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -82,7 +82,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -104,7 +104,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -129,7 +129,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -154,7 +154,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -175,7 +175,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -197,7 +197,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }
@@ -220,7 +220,7 @@ export default class Api {
       }
 
       return data;
-    } catch (e: any) {
+    } catch (e) {
       return e;
     }
   }

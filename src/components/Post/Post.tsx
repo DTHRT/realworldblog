@@ -1,3 +1,5 @@
+import React from "react";
+
 import styles from "./Post.module.scss";
 import Tag from "../Tag";
 import Like from "../Like";
@@ -12,9 +14,10 @@ import { toast } from "react-toastify";
 import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
 import Tooltip from "../Tooltip";
 import { useRef } from "react";
+import { IArticle } from "../../services/types";
 
 interface Props {
-  article: any;
+  article: IArticle;
   full?: boolean;
   onLike?: () => void;
 }
@@ -138,7 +141,6 @@ const Post: React.FC<Props> = ({ article, full, onLike }) => {
             ref={tooltipRef}
           >
             <Tooltip
-              tooltip={ReactTooltip}
               onCancel={() => {
                 tooltipRef.current?.close();
               }}

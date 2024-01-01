@@ -1,14 +1,15 @@
+import React from "react";
+
 import styles from "./Tooltip.module.scss";
 import Button from "../Button";
 import classNames from "classnames";
 
 interface ITooltip {
-  tooltip: any;
   onCancel: () => void;
   onAccept: () => void;
 }
 
-const Tooltip: React.FC<ITooltip> = ({ tooltip, onCancel, onAccept }) => {
+const Tooltip: React.FC<ITooltip> = ({ onCancel, onAccept }) => {
   return (
     <div className={styles.Tooltip}>
       <div className={styles.Tooltip__content}>

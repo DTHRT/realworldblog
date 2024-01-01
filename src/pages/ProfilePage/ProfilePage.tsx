@@ -1,17 +1,20 @@
+/* eslint-disable */
+import React from "react";
 import Form from "../../components/Form";
 import InputText from "../../components/InputText";
 import { useHistory } from "react-router-dom";
 import styles from "./ProfilePage.module.scss";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { login } from "../../features/user/userSlice";
 import Api from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { RootState } from "../../store";
 
 const ProfilePage = () => {
   const { username, email, token, image } = useSelector(
-    (state: any) => state.user,
+    (state: RootState) => state.user,
   );
 
   const {
@@ -33,8 +36,12 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onSubmit = async (data: any) => {
-    const response = await api.editProfile(data, token);
+  const onSubmit = async (data: FieldValues) => {
+    const { email, username, image, password } = data;
+    const response = await api.editProfile(
+      { email, username, image, password },
+      token ? token : "",
+    );
 
     const { errors, user } = response;
 

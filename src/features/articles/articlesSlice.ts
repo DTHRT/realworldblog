@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IArticle } from "../../services/types";
 
 export interface UserState {
-  articles: any[];
+  articles: IArticle[];
 }
 
 const initialState: UserState = {
