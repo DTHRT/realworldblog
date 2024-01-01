@@ -23,9 +23,14 @@ export default class Api {
     }
   }
 
-  async getPost(slug: string = "") {
+  async getPost(slug: string = "", token?: string) {
     try {
-      const response = await fetch(this.#apiBase + `/articles/${slug}`);
+      const response = await fetch(this.#apiBase + `/articles/${slug}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
