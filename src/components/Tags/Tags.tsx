@@ -15,8 +15,6 @@ const Tags: React.FC<TagsProps> = ({ register, errors, control }) => {
     name: "tags",
   });
 
-  console.log(fields);
-
   return (
     <div className={styles.Tags}>
       <span className={styles.Tags__label}>Tags</span>
