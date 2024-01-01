@@ -15,3 +15,9 @@ export interface IUser {
   image: string;
   password: string;
 }
+
+export interface IPost {
+  title: string;
+  description: string;
+  tagList: string[];
+}
