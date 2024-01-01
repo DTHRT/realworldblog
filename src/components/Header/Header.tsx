@@ -24,7 +24,7 @@ const Header: React.FC = () => {
       <div className={styles.Header__buttons}>
         {token ? (
           <>
-            <Link to="/create-article">
+            <Link to="/new-article">
               <Button variant="create-article">Create article</Button>
             </Link>
 
