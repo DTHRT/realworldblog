@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 import Post from "../../components/Post";
 import Api from "../../services/api";
 import styles from "./PostPage.module.scss";
+import { useSelector } from "react-redux";
 
 const PostPage = () => {
   const params = useParams();
@@ -12,21 +13,26 @@ const PostPage = () => {
   const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState(null);
   const api = new Api();
+  const { token } = useSelector((state: any) => state.user);
 
   useEffect(() => {
     setLoading(true);
-    api.getPost(slug).then(({ article }) => {
+    getPost();
+  }, []);
+
+  const getPost = async () => {
+    api.getPost(slug, token).then(({ article }) => {
       setArticle(article);
       setLoading(false);
     });
-  }, [slug]);
+  };
 
   return loading ? (
     <Loader />
   ) : (
     article && (
       <div className={styles.PostPage}>
-        <Post article={article} full={true} />
+        <Post article={article} full={true} onLike={getPost} />
       </div>
     )
   );
