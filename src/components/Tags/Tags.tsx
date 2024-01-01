@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Tags.module.scss";
 import InputText from "../InputText";
 import Button from "../Button";

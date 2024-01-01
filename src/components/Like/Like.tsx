@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Like.module.scss";
 import classNames from "classnames";
 import Api from "../../services/api";

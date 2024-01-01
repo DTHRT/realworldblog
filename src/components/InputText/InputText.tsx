@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./InputText.module.scss";
 import classNames from "classnames";
 

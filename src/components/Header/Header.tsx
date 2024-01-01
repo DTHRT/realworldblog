@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "../Button";
 import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";

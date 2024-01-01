@@ -1,4 +1,5 @@
 import styles from "./PostList.module.scss";
+import React from "react";
 
 interface Props {
   children?: React.ReactNode;

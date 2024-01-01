@@ -1,8 +1,11 @@
+import React from "react";
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
+  RouteComponentProps,
 } from "react-router-dom";
 import PostPage from "./pages/PostPage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
@@ -87,7 +90,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={(props: RouteComponentProps) =>
         isAuthenticated ? (
           <Component {...props} />
         ) : (
