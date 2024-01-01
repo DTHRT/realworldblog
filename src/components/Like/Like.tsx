@@ -13,6 +13,7 @@ interface Props {
   likes?: number;
   disabled?: boolean;
   slug: string;
+  onClick?: () => void;
 }
 const Like: React.FC<Props> = ({
   active,
@@ -20,6 +21,7 @@ const Like: React.FC<Props> = ({
   likes = 0,
   disabled,
   slug,
+  onClick = () => {},
 }) => {
   const api = new Api();
   const { token } = useSelector((state: any) => state.user);
@@ -92,6 +94,7 @@ const Like: React.FC<Props> = ({
       console.error(e);
     } finally {
       setLoading(false);
+      onClick();
     }
   };
 
