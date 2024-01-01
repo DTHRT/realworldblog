@@ -16,9 +16,10 @@ import { useRef } from "react";
 interface Props {
   article: any;
   full?: boolean;
+  onLike?: () => void;
 }
 
-const Post: React.FC<Props> = ({ article, full }) => {
+const Post: React.FC<Props> = ({ article, full, onLike }) => {
   const {
     title,
     slug,
@@ -90,6 +91,7 @@ const Post: React.FC<Props> = ({ article, full }) => {
               disabled={!token}
               slug={slug}
               active={favorited}
+              onClick={onLike}
             />
           </div>
 
