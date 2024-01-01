@@ -2,7 +2,7 @@ import styles from "./InputText.module.scss";
 import classNames from "classnames";
 
 interface Props {
-  label: string;
+  label?: string;
   name: string;
   placeholder: string;
   register: any;
@@ -18,7 +18,7 @@ const InputText: React.FC<Props> = ({
 }) => {
   return (
     <label htmlFor={`${name}`} className={styles.InputText}>
-      <span className={styles.InputText__label}>{label}</span>
+      {label && <span className={styles.InputText__label}>{label}</span>}
 
       <input
         className={classNames(styles.InputText__input, {
