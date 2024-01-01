@@ -9,6 +9,9 @@ import Button from "../Button";
 import { useSelector } from "react-redux";
 import Api from "../../services/api";
 import { toast } from "react-toastify";
+import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
+import Tooltip from "../Tooltip";
+import { useRef } from "react";
 
 interface Props {
   article: any;
@@ -31,6 +34,7 @@ const Post: React.FC<Props> = ({ article, full }) => {
   );
   const api = new Api();
   const history = useHistory();
+  const tooltipRef = useRef<TooltipRefProps>(null);
 
   const deleteArticle = async () => {
     if (!token) {
@@ -104,7 +108,7 @@ const Post: React.FC<Props> = ({ article, full }) => {
               styles.Post__myPostButton,
               styles.Post__myPostButtonDelete,
             )}
-            onClick={deleteArticle}
+            data-tooltip-id="my-tooltip"
           >
             Delete
           </Button>
@@ -118,6 +122,23 @@ const Post: React.FC<Props> = ({ article, full }) => {
               Edit
             </Button>
           </Link>
+
+          <ReactTooltip
+            className={styles.Post__tooltip}
+            id="my-tooltip"
+            place="right"
+            openOnClick={true}
+            clickable={true}
+            ref={tooltipRef}
+          >
+            <Tooltip
+              tooltip={ReactTooltip}
+              onCancel={() => {
+                tooltipRef.current?.close();
+              }}
+              onAccept={deleteArticle}
+            />
+          </ReactTooltip>
         </div>
       )}
 
