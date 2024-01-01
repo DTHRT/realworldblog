@@ -2,10 +2,16 @@ import { ILogin, IPost, IRegister, IUser } from "./types";
 export default class Api {
   #apiBase = "https://blog.kata.academy/api";
 
-  async getPosts(offset: number = 0, limit: number = 5) {
+  async getPosts(offset: number = 0, limit: number = 5, token?: string) {
     try {
       const response = await fetch(
         this.#apiBase + `/articles?limit=${limit}&offset=${offset}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        },
       );
       if (!response.ok) {
         throw new Error(response.statusText);
