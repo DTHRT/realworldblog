@@ -4,19 +4,25 @@ import Loader from "../../components/Loader";
 import Post from "../../components/Post";
 import Pagination from "../../components/Paginataion";
 import PostList from "../../components/PostList";
+import { useDispatch, useSelector } from "react-redux";
+import { setArticles } from "../../features/articles/articlesSlice";
+import { RootState } from "../../store";
 
 function ArticlesPage() {
-  const [articles, setArticles] = useState([]);
+  // const [articles, setArticles] = useState([]);
   const [totalArticles, setTotalArticles] = useState(0);
   const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const api = new Api();
+  const { token } = useSelector((state: any) => state.user);
+  const { articles } = useSelector((state: RootState) => state.articles);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
       setLoading(true);
-      api.getPosts().then(({ articles, articlesCount }) => {
-        setArticles(articles);
+      api.getPosts(0, 5, token).then(({ articles, articlesCount }) => {
+        dispatch(setArticles(articles));
         setTotalArticles(articlesCount);
         setPages(Math.ceil(articlesCount / 5));
         setLoading(false);
@@ -31,8 +37,8 @@ function ArticlesPage() {
     const newOffset = (event.selected * 5) % totalArticles;
 
     try {
-      const { articles } = await api.getPosts(newOffset);
-      setArticles(articles);
+      const { articles } = await api.getPosts(newOffset, 5, token);
+      dispatch(setArticles(articles));
     } catch (e) {
       console.error(e);
     } finally {
@@ -45,7 +51,7 @@ function ArticlesPage() {
       {loading ? (
         <Loader />
       ) : (
-        articles.length > 0 && (
+        articles?.length > 0 && (
           <PostList>
             {articles.map((article) => {
               const {
