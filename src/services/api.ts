@@ -54,8 +54,6 @@ export default class Api {
   }
 
   async updatePost(slug: string, body: IPost, token: string) {
-    console.log(slug, body, token);
-
     try {
       const response = await fetch(this.#apiBase + `/articles/${slug}`, {
         method: "PUT",
@@ -64,6 +62,28 @@ export default class Api {
           Authorization: `Token ${token}`,
         },
         body: JSON.stringify({ article: body }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      return data;
+    } catch (e: any) {
+      return e;
+    }
+  }
+
+  async deletePost(slug: string, token: string) {
+    try {
+      const response = await fetch(this.#apiBase + `/articles/${slug}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
       });
 
       const data = await response.json();
