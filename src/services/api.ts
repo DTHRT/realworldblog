@@ -123,6 +123,31 @@ export default class Api {
     }
   }
 
+  async dislikePost(slug: string, token: string) {
+    try {
+      const response = await fetch(
+        this.#apiBase + `/articles/${slug}/favorite `,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      return data;
+    } catch (e: any) {
+      return e;
+    }
+  }
+
   async login(body: ILogin) {
     try {
       const response = await fetch(this.#apiBase + "/users/login", {
