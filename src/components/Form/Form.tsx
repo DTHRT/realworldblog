@@ -8,6 +8,7 @@ interface Props {
   submitText?: string;
   footerText?: React.ReactNode;
   className?: string;
+  submitButtonClassName?: string;
 }
 
 const Form: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Form: React.FC<Props> = ({
   submitText,
   footerText,
   className,
+  submitButtonClassName,
 }) => {
   return (
     <form className={classNames(styles.Form, className)} onSubmit={onSubmit}>
@@ -25,7 +27,10 @@ const Form: React.FC<Props> = ({
       <div className={styles.Form__form}>{children}</div>
 
       <div className={styles.Form__footer}>
-        <button type="submit" className={styles.Form__submit}>
+        <button
+          type="submit"
+          className={classNames(styles.Form__submit, submitButtonClassName)}
+        >
           {submitText || "Submit"}
         </button>
 
