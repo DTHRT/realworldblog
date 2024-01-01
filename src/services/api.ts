@@ -1,4 +1,4 @@
-import { ILogin, IRegister, IUser } from "./types";
+import { ILogin, IPost, IRegister, IUser } from "./types";
 export default class Api {
   #apiBase = "https://blog.kata.academy/api";
 
@@ -27,6 +27,29 @@ export default class Api {
       return await response.json();
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  async createPost(body: IPost, token: string) {
+    try {
+      const response = await fetch(this.#apiBase + "/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify({ article: body }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw data;
+      }
+
+      return data;
+    } catch (e: any) {
+      return e;
     }
   }
 
