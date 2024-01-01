@@ -7,6 +7,7 @@ interface Props {
   onClick?: () => void;
   variant?: "default" | "success" | "create-article" | "black" | undefined;
   className?: string;
+  [key: string]: any;
 }
 const Button: React.FC<Props> = ({
   type = "submit",
@@ -14,6 +15,7 @@ const Button: React.FC<Props> = ({
   onClick,
   variant = "default",
   className,
+  ...props
 }) => {
   return (
     <button
@@ -31,6 +33,7 @@ const Button: React.FC<Props> = ({
         },
       )}
       onClick={onClick}
+      {...props}
     >
       {children}
     </button>
