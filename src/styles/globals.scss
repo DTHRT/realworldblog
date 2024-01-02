@@ -1,5 +1,5 @@
-@import "utils/reset";
-@import "github-markdown-css/github-markdown-light.css";
+@import 'utils/reset';
+@import 'github-markdown-css/github-markdown-light.css';
 
 html {
   box-sizing: border-box;
@@ -12,7 +12,7 @@ html {
 
 html,
 body {
-  font-family: "Inter UI", sans-serif;
+  font-family: 'Inter UI', sans-serif;
   background: #ebeef3;
 }
 

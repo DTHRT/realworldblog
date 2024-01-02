@@ -1,62 +1,57 @@
 /* eslint-disable */
-import React from "react";
-import Form from "../../components/Form";
-import InputText from "../../components/InputText";
-import { useHistory } from "react-router-dom";
-import styles from "./ProfilePage.module.scss";
-import { FieldValues, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { login } from "../../features/user/userSlice";
-import Api from "../../services/api";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { RootState } from "../../store";
+import React from 'react'
+import Form from '../../components/Form'
+import InputText from '../../components/InputText'
+import { useHistory } from 'react-router-dom'
+import styles from './ProfilePage.module.scss'
+import { FieldValues, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { login } from '../../features/user/userSlice'
+import Api from '../../services/api'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { RootState } from '../../store'
 
 const ProfilePage = () => {
-  const { username, email, token, image } = useSelector(
-    (state: RootState) => state.user,
-  );
+  const { username, email, token, image } = useSelector((state: RootState) => state.user)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm()
 
   useEffect(() => {
     reset({
       username,
       email,
       image,
-    });
-  }, [username, email, image]);
+    })
+  }, [username, email, image])
 
-  const api = new Api();
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const api = new Api()
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const onSubmit = async (data: FieldValues) => {
-    const { email, username, image, password } = data;
-    const response = await api.editProfile(
-      { email, username, image, password },
-      token ? token : "",
-    );
+    const { email, username, image, password } = data
+    const response = await api.editProfile({ email, username, image, password }, token ? token : '')
 
-    const { errors, user } = response;
+    const { errors, user } = response
 
     if (errors) {
       const errorMessages = Object.entries(errors)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(" ");
+        .join(' ')
 
-      return toast.error(errorMessages);
+      return toast.error(errorMessages)
     }
 
-    toast.success("Logged in successfully");
-    dispatch(login(user));
-    history.push("/");
-  };
+    toast.success('Logged in successfully')
+    dispatch(login(user))
+    history.push('/')
+  }
 
   return (
     <Form
@@ -67,19 +62,19 @@ const ProfilePage = () => {
     >
       <InputText
         register={{
-          ...register("username", {
-            required: "Username is required",
+          ...register('username', {
+            required: 'Username is required',
             minLength: {
               value: 3,
-              message: "Username must be at least 3 characters",
+              message: 'Username must be at least 3 characters',
             },
             maxLength: {
               value: 20,
-              message: "Username must be less than 20 characters",
+              message: 'Username must be less than 20 characters',
             },
           }),
         }}
-        error={errors["username"]}
+        error={errors['username']}
         label="Username"
         name="username"
         placeholder="Username"
@@ -87,15 +82,15 @@ const ProfilePage = () => {
 
       <InputText
         register={{
-          ...register("email", {
-            required: "Email is required",
+          ...register('email', {
+            required: 'Email is required',
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
+              message: 'Invalid email address',
             },
           }),
         }}
-        error={errors["email"]}
+        error={errors['email']}
         label="Email address"
         name="email"
         placeholder="Email address"
@@ -103,19 +98,19 @@ const ProfilePage = () => {
 
       <InputText
         register={{
-          ...register("password", {
-            required: "New password is required",
+          ...register('password', {
+            required: 'New password is required',
             minLength: {
               value: 6,
-              message: "Password must be at least 6 characters",
+              message: 'Password must be at least 6 characters',
             },
             maxLength: {
               value: 40,
-              message: "Password must be less than 40 characters",
+              message: 'Password must be less than 40 characters',
             },
           }),
         }}
-        error={errors["password"]}
+        error={errors['password']}
         label="New Password"
         name="password"
         placeholder="New Password"
@@ -123,22 +118,21 @@ const ProfilePage = () => {
 
       <InputText
         register={{
-          ...register("image", {
-            required: "This field is required",
+          ...register('image', {
+            required: 'This field is required',
             pattern: {
-              value:
-                /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/,
-              message: "Invalid url",
+              value: /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/,
+              message: 'Invalid url',
             },
           }),
         }}
-        error={errors["image"]}
+        error={errors['image']}
         label="Avatar image (url)"
         name="image"
         placeholder="Avatar image"
       />
     </Form>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage
