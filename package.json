@@ -36,7 +36,8 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "format": "prettier ./src --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "tsc --noEmit"
   },
   "eslintConfig": {
     "extends": [
