@@ -1,7 +1,8 @@
-import React from "react";
-import styles from "./Loader.module.scss";
+import React from 'react'
 
-const Loader = () => {
+import styles from './Loader.module.scss'
+
+function Loader() {
   return (
     <div className={styles.Loader}>
       <svg
@@ -27,11 +28,11 @@ const Loader = () => {
             dur="1s"
             values="0 50 50;360 50 50"
             keyTimes="0;1"
-          ></animateTransform>
+          />
         </circle>
       </svg>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

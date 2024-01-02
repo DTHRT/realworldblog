@@ -1,104 +1,97 @@
-import React from "react";
-import styles from "./Like.module.scss";
-import classNames from "classnames";
-import Api from "../../services/api";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { setArticles } from "../../features/articles/articlesSlice";
-import { useState } from "react";
+/* eslint-disable */
+
+import React, { useState } from 'react'
+import classNames from 'classnames'
+import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Api from '../../services/api'
+import { RootState } from '../../store'
+import { setArticles } from '../../features/articles/articlesSlice'
+
+import styles from './Like.module.scss'
 
 interface Props {
-  qcweqwce;
-  className?: string;
-  active?: boolean;
-  likes?: number;
-  disabled?: boolean;
-  slug: string;
-  onClick?: () => void;
+  className?: string
+  active?: boolean
+  likes?: number
+  disabled?: boolean
+  slug: string
+  onClick?: () => void
 }
-const Like: React.FC<Props> = ({
-  active,
-  className,
-  likes = 0,
-  disabled,
-  slug,
-  onClick = () => {},
-}) => {
-  const api = new Api();
-  const { token } = useSelector((state: any) => state.user);
-  const { articles } = useSelector((state: RootState) => state.articles);
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+const Like: React.FC<Props> = ({ active, className, likes = 0, disabled, slug, onClick = () => {} }) => {
+  const api = new Api()
+  const { token } = useSelector((state: any) => state.user)
+  const { articles } = useSelector((state: RootState) => state.articles)
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   const likePost = async () => {
     if (!token) {
-      return toast.error("Please sign in");
+      return toast.error('Please sign in')
     }
 
-    const response = await api.likePost(slug, token);
+    const response = await api.likePost(slug, token)
 
-    const { errors } = response;
+    const { errors } = response
 
     if (errors) {
       const errorMessages = Object.entries(errors)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(" ");
+        .join(' ')
 
-      return toast.error(errorMessages);
+      return toast.error(errorMessages)
     }
 
-    toast.success("Add to favorites");
-    return response;
-  };
+    toast.success('Add to favorites')
+    return response
+  }
 
   const dislikePost = async () => {
     if (!token) {
-      return toast.error("Please sign in");
+      return toast.error('Please sign in')
     }
 
-    const response = await api.dislikePost(slug, token);
+    const response = await api.dislikePost(slug, token)
 
-    const { errors } = response;
+    const { errors } = response
 
     if (errors) {
       const errorMessages = Object.entries(errors)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(" ");
+        .join(' ')
 
-      return toast.error(errorMessages);
+      return toast.error(errorMessages)
     }
 
-    toast.success("Remove from favorites");
-    return response;
-  };
+    toast.success('Remove from favorites')
+    return response
+  }
 
   const onClickHeart = async () => {
-    setLoading(true);
+    setLoading(true)
 
     try {
-      const { article: updatedArticle } = active
-        ? await dislikePost()
-        : await likePost();
-      const { slug: updatedSlug } = updatedArticle;
+      const { article: updatedArticle } = active ? await dislikePost() : await likePost()
+      const { slug: updatedSlug } = updatedArticle
 
       const updatedArticles = articles.map((article) => {
         if (article.slug === updatedSlug) {
-          return updatedArticle;
+          return updatedArticle
         }
 
-        return article;
-      });
+        return article
+      })
 
-      dispatch(setArticles(updatedArticles));
+      dispatch(setArticles(updatedArticles))
     } catch (e) {
-      toast.error("Something went wrong");
-      console.error(e);
+      toast.error('Something went wrong')
+      console.error(e)
     } finally {
-      setLoading(false);
-      onClick();
+      setLoading(false)
+      onClick()
     }
-  };
+  }
 
   return (
     <p className={classNames(styles.Like, className)}>
@@ -112,7 +105,7 @@ const Like: React.FC<Props> = ({
 
       <span className={styles.Like__counter}>{likes}</span>
     </p>
-  );
-};
+  )
+}
 
-export default Like;
+export default Like

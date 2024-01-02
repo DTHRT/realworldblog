@@ -1,21 +1,23 @@
-import React from "react";
-import Button from "../Button";
-import styles from "./Header.module.scss";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import UserBlock from "../UserBlock";
-import { logout } from "../../features/user/userSlice";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-const Header: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user);
-  const { token, username, image } = user;
+import Button from '../Button'
+import { RootState } from '../../store'
+import UserBlock from '../UserBlock'
+import { logout } from '../../features/user/userSlice'
 
-  const dispatch = useDispatch();
+import styles from './Header.module.scss'
+
+function Header() {
+  const user = useSelector((state: RootState) => state.user)
+  const { token, username, image } = user
+
+  const dispatch = useDispatch()
 
   const onLogOut = () => {
-    dispatch(logout());
-  };
+    dispatch(logout())
+  }
 
   return (
     <header className={styles.Header}>
@@ -29,11 +31,7 @@ const Header: React.FC = () => {
               <Button variant="create-article">Create article</Button>
             </Link>
 
-            <UserBlock
-              username={username}
-              image={image}
-              locatedInHeader={true}
-            />
+            <UserBlock username={username} image={image} locatedInHeader />
 
             <Link to="/">
               <Button variant="black" onClick={onLogOut}>
@@ -53,7 +51,7 @@ const Header: React.FC = () => {
         )}
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

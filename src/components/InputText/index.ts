@@ -1,3 +1,3 @@
-import inputText from "./InputText";
+import inputText from './InputText'
 
-export default inputText;
+export default inputText

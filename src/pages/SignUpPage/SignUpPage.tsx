@@ -1,45 +1,49 @@
-import React from "react";
-import Form from "../../components/Form";
-import InputText from "../../components/InputText";
-import { Link, useHistory } from "react-router-dom";
-import InputCheckbox from "../../components/InputCheckbox";
-import styles from "./SignUpPage.module.scss";
-import { FieldValues, useForm } from "react-hook-form";
-import Api from "../../services/api";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { login } from "../../features/user/userSlice";
+/* eslint-disable */
+import React from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 
-const SignUpPage = () => {
+import Form from '../../components/Form'
+import InputText from '../../components/InputText'
+import InputCheckbox from '../../components/InputCheckbox'
+import Api from '../../services/api'
+import { login } from '../../features/user/userSlice'
+
+import styles from './SignUpPage.module.scss'
+
+function SignUpPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
-  const api = new Api();
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const api = new Api()
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const onSubmit = async (data: FieldValues) => {
-    const { username, email, password } = data;
+    const { username, email, password } = data
 
-    const response = await api.register({ username, email, password });
+    const response = await api.register({ username, email, password })
 
-    const { errors, user } = response;
+    const { errors: respErrors, user } = response
 
-    if (errors) {
-      const errorMessages = Object.entries(errors)
+    if (respErrors) {
+      const errorMessages = Object.entries(respErrors)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(" ");
+        .join(' ')
 
-      return toast.error(errorMessages);
+      return toast.error(errorMessages)
     }
 
-    toast.success("User created successfully");
-    dispatch(login(user));
-    history.push("/");
-  };
+    toast.success('User created successfully')
+    dispatch(login(user))
+    history.push('/')
+    return true
+  }
 
   return (
     <Form
@@ -55,19 +59,19 @@ const SignUpPage = () => {
     >
       <InputText
         register={{
-          ...register("username", {
-            required: "Username is required",
+          ...register('username', {
+            required: 'Username is required',
             minLength: {
               value: 3,
-              message: "Username must be at least 3 characters",
+              message: 'Username must be at least 3 characters',
             },
             maxLength: {
               value: 20,
-              message: "Username must be less than 20 characters",
+              message: 'Username must be less than 20 characters',
             },
           }),
         }}
-        error={errors["username"]}
+        error={errors.username}
         label="Username"
         name="username"
         placeholder="Username"
@@ -75,15 +79,15 @@ const SignUpPage = () => {
 
       <InputText
         register={{
-          ...register("email", {
-            required: "Email is required",
+          ...register('email', {
+            required: 'Email is required',
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
+              message: 'Invalid email address',
             },
           }),
         }}
-        error={errors["email"]}
+        error={errors.email}
         label="Email address"
         name="email"
         placeholder="Email address"
@@ -91,19 +95,19 @@ const SignUpPage = () => {
 
       <InputText
         register={{
-          ...register("password", {
-            required: "Password is required",
+          ...register('password', {
+            required: 'Password is required',
             minLength: {
               value: 6,
-              message: "Password must be at least 6 characters",
+              message: 'Password must be at least 6 characters',
             },
             maxLength: {
               value: 40,
-              message: "Password must be less than 40 characters",
+              message: 'Password must be less than 40 characters',
             },
           }),
         }}
-        error={errors["password"]}
+        error={errors.password}
         label="Password"
         name="password"
         placeholder="Password"
@@ -111,16 +115,12 @@ const SignUpPage = () => {
 
       <InputText
         register={{
-          ...register("repeat-password", {
-            required: "This field is required",
-            validate: (value, formValues) => {
-              return (
-                value === formValues["password"] || "Passwords do not match"
-              );
-            },
+          ...register('repeat-password', {
+            required: 'This field is required',
+            validate: (value, formValues) => value === formValues.password || 'Passwords do not match',
           }),
         }}
-        error={errors["repeat-password"]}
+        error={errors['repeat-password']}
         label="Repeat Password"
         name="repeat-password"
         placeholder="Repeat Password"
@@ -130,21 +130,16 @@ const SignUpPage = () => {
         label="I agree to the processing of my personal
         information"
         name="policy"
-        checked={true}
+        checked
         register={{
-          ...register("policy", {
-            validate: (value) => {
-              return (
-                value === true ||
-                "You must agree to the processing of your personal information"
-              );
-            },
+          ...register('policy', {
+            validate: (value) => value === true || 'You must agree to the processing of your personal information',
           }),
         }}
-        error={errors["policy"]}
+        error={errors.policy}
       />
     </Form>
-  );
-};
+  )
+}
 
-export default SignUpPage;
+export default SignUpPage

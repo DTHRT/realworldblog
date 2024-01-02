@@ -1,11 +1,11 @@
-import styles from "./PostList.module.scss";
-import React from "react";
+/* eslint-disable */
+import React from 'react'
+
+import styles from './PostList.module.scss'
 
 interface Props {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
-const PostList: React.FC<Props> = ({ children }) => {
-  return <ul className={styles.PostList}>{children}</ul>;
-};
+const PostList: React.FC<Props> = ({ children }) => <ul className={styles.PostList}>{children}</ul>
 
-export default PostList;
+export default PostList

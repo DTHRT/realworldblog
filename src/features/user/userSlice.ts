@@ -1,37 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable */
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface UserState {
-  username: string;
-  email: string;
-  token: string | null;
-  image: string;
+  username: string
+  email: string
+  token: string | null
+  image: string
 }
 
 const initialState: UserState = {
-  username: "",
-  email: "",
+  username: '',
+  email: '',
   token: null,
-  image: "",
-};
+  image: '',
+}
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     login: (state, action) => {
-      state.username = action.payload.username;
-      state.email = action.payload.email;
-      state.token = action.payload.token;
-      state.image = action.payload.image;
+      state.username = action.payload.username
+      state.email = action.payload.email
+      state.token = action.payload.token
+      state.image = action.payload.image
     },
 
     logout: (state) => {
-      state.username = "";
-      state.email = "";
-      state.token = null;
+      state.username = ''
+      state.email = ''
+      state.token = null
     },
   },
-});
-export const { login, logout } = userSlice.actions;
+})
+export const { login, logout } = userSlice.actions
 
-export default userSlice.reducer;
+export default userSlice.reducer

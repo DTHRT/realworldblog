@@ -1,12 +1,12 @@
-import styles from "./Container.module.scss";
-import React from "react";
+import React from 'react'
+
+import styles from './Container.module.scss'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-const Container: React.FC<Props> = ({ children }) => {
-  return <main className={styles.Container}>{children}</main>;
-};
+// eslint-disable-next-line react/function-component-definition
+const Container: React.FC<Props> = ({ children }) => <main className={styles.Container}>{children}</main>
 
-export default Container;
+export default Container

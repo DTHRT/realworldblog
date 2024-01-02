@@ -1,21 +1,22 @@
-import React from "react";
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { FieldValues, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
-import styles from "./CreateArticlePage.module.scss";
-import Form from "../../components/Form";
-import InputText from "../../components/InputText";
-import { FieldValues, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import Api from "../../services/api";
-import Textarea from "../../components/Textarea";
-import Tags from "../../components/Tags";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { useHistory } from "react-router-dom";
+import Form from '../../components/Form'
+import InputText from '../../components/InputText'
+import Api from '../../services/api'
+import Textarea from '../../components/Textarea'
+import Tags from '../../components/Tags'
+import { RootState } from '../../store'
 
-const CreateArticlePage = () => {
-  const { token } = useSelector((state: RootState) => state.user);
-  const history = useHistory();
-  const api = new Api();
+import styles from './CreateArticlePage.module.scss'
+
+function CreateArticlePage() {
+  const { token } = useSelector((state: RootState) => state.user)
+  const history = useHistory()
+  const api = new Api()
   const {
     register,
     handleSubmit,
@@ -23,39 +24,37 @@ const CreateArticlePage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      tags: [{ tag: "" }],
-      description: "",
-      title: "",
+      tags: [{ tag: '' }],
+      description: '',
+      title: '',
     },
-  });
+  })
 
   const onSubmit = async (data: FieldValues) => {
     if (!token) {
-      return toast.error("Please sign in");
+      return toast.error('Please sign in')
     }
 
-    const { title, description, tags } = data;
+    const { title, description, tags } = data
 
-    const tagList = tags.map((tag: { tag: string }) => tag.tag);
+    const tagList = tags.map((tag: { tag: string }) => tag.tag)
 
-    const response = await api.createPost(
-      { title, description, tagList },
-      token,
-    );
+    const response = await api.createPost({ title, description, tagList }, token)
 
-    const { errors } = response;
+    const { errors: errorsResp } = response
 
-    if (errors) {
-      const errorMessages = Object.entries(errors)
+    if (errorsResp) {
+      const errorMessages = Object.entries(errorsResp)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(" ");
+        .join(' ')
 
-      return toast.error(errorMessages);
+      return toast.error(errorMessages)
     }
 
-    toast.success("Article created successfully");
-    history.push("/");
-  };
+    toast.success('Article created successfully')
+    history.push('/')
+    return true
+  }
 
   return (
     <div className={styles.CreateArticlePage}>
@@ -70,11 +69,11 @@ const CreateArticlePage = () => {
           name="title"
           placeholder="Title"
           register={{
-            ...register("title", {
-              required: "Title is required",
+            ...register('title', {
+              required: 'Title is required',
             }),
           }}
-          error={errors["title"]}
+          error={errors.title}
         />
 
         <Textarea
@@ -82,17 +81,17 @@ const CreateArticlePage = () => {
           name="description"
           placeholder="Text"
           register={{
-            ...register("description", {
-              required: "Text is required",
+            ...register('description', {
+              required: 'Text is required',
             }),
           }}
-          error={errors["description"]}
+          error={errors.description}
         />
 
         <Tags register={register} errors={errors} control={control} />
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default CreateArticlePage;
+export default CreateArticlePage

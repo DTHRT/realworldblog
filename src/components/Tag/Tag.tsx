@@ -1,12 +1,14 @@
-import React from "react";
-import styles from "./Tag.module.scss";
-import classNames from "classnames";
+import React from 'react'
+import classNames from 'classnames'
+
+import styles from './Tag.module.scss'
 
 interface Props {
-  text: string;
+  text: string
 }
+// eslint-disable-next-line react/function-component-definition
 const Tag: React.FC<Props> = ({ text }) => {
-  if (!text) return null;
+  if (!text) return null
 
   return (
     <span
@@ -16,7 +18,7 @@ const Tag: React.FC<Props> = ({ text }) => {
     >
       {text}
     </span>
-  );
-};
+  )
+}
 
-export default Tag;
+export default Tag

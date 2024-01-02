@@ -1,3 +1,3 @@
-import UserBlock from "./UserBlock";
+import UserBlock from './UserBlock'
 
-export default UserBlock;
+export default UserBlock
